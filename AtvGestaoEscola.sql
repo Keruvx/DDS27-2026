@@ -1,0 +1,75 @@
+
+CREATE DATABASE GestaoEscolar;
+DROP DATABASE GestaoEscolar;
+
+USE GestaoEscolar;
+
+-- Tabela de Alunos
+CREATE TABLE TB_ALUNO (
+    RA_ALUN INT PRIMARY KEY,
+    NOME_ALU VARCHAR(100) NOT NULL,
+    DT_NASC_ALU DATE NOT NULL,
+    CPF_ALU VARCHAR(14) NOT NULL UNIQUE,
+    SEXO_ALU CHAR(1) NOT NULL
+);
+
+-- Tabela de Cursos
+CREATE TABLE TB_CURSO (
+    COD_CURS INT PRIMARY KEY AUTO_INCREMENT,
+    NOME_CURS VARCHAR(100),
+    PER_CURS VARCHAR(30),
+    DUR_CURS INT NOT NULL,
+    VALOR_CURS DECIMAL(10, 2)
+);
+
+-- Tabela de Matrículas
+CREATE TABLE TB_MATRICULA (
+    COD_MAT INT PRIMARY KEY AUTO_INCREMENT,
+    RA_ALU INT,
+    DATA_MAT DATE,
+    COD_CURS INT,
+    FOREIGN KEY (RA_ALU) REFERENCES TB_ALUNO(RA_ALUN),
+    FOREIGN KEY (COD_CURS) REFERENCES TB_CURSO(COD_CURS)
+);
+
+
+INSERT INTO TB_ALUNO (RA_ALUN, NOME_ALU, DT_NASC_ALU, CPF_ALU, SEXO_ALU) VALUES
+(1001, 'Ana Silva', '2000-05-15', '111.111.111-11', 'F'),
+(1002, 'Bruno Souza', '1999-08-22', '222.222.222-22', 'M'),
+(1003, 'Carlos Pereira', '2001-01-10', '333.333.333-33', 'M'),
+(1004, 'Daniela Costa', '2002-11-30', '444.444.444-44', 'F'),
+(1005, 'Eduardo Lima', '1998-03-05', '555.555.555-55', 'M'),
+(1006, 'Fernanda Alves', '2000-07-19', '666.666.666-66', 'F'),
+(1007, 'Gabriel Gomes', '2001-09-25', '777.777.777-77', 'M'),
+(1008, 'Helena Dias', '2002-02-14', '888.888.888-88', 'F'),
+(1009, 'Igor Martins', '1999-12-01', '999.999.999-99', 'M'),
+(1010, 'Juliana Rocha', '2000-10-08', '000.000.000-00', 'F');
+
+INSERT INTO TB_CURSO (COD_CURS, NOME_CURS, PER_CURS, DUR_CURS, VALOR_CURS) VALUES
+(1, 'Análise e Des. de Sistemas', 'Noturno', 5, 850.00),
+(2, 'Sistemas de Informação', 'Matutino', 8, 1200.00),
+(3, 'Engenharia de Software', 'Integral', 10, 1500.00),
+(4, 'Ciência da Computação', 'Matutino', 8, 1300.00),
+(5, 'Redes de Computadores', 'Noturno', 5, 800.00);
+
+INSERT INTO TB_MATRICULA (RA_ALU, DATA_MAT, COD_CURS) VALUES
+(1001, '2023-01-10', 1),
+(1001, '2023-01-15', 5),
+(1002, '2023-02-01', 2),
+(1002, '2023-02-05', 4),
+(1003, '2023-01-20', 3),
+(1003, '2023-01-22', 1),
+(1004, '2023-02-10', 4),
+(1004, '2023-02-12', 2),
+(1005, '2023-01-05', 5),
+(1005, '2023-01-08', 3),
+(1006, '2023-02-15', 1),
+(1006, '2023-02-18', 2),
+(1007, '2023-01-25', 4),
+(1007, '2023-01-28', 5),
+(1008, '2023-02-20', 3),
+(1008, '2023-02-22', 1),
+(1009, '2023-01-30', 2),
+(1009, '2023-02-02', 4),
+(1010, '2023-02-25', 5),
+(1010, '2023-02-28', 3);
